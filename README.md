@@ -5,6 +5,11 @@ The standard modern approach to solve this type of problems is to take a large d
 
 For more information: http://machinelearning.tf.fau.de/course_labmlisp.html/
 
-## Requiremnets
-The software is developed in Python 2.7 using Jupyter Notebook development kit. For deep learning, the PyTorch framework is used.
+Requiremnets
+------
 
+The software is developed in **Python** **2.7** using **Jupyter** **Notebook** development kit. For deep learning, the **PyTorch** framework is used.
+
+All Python modules required for the software can be installed in two stages:
+1. Create an environment and install all modules mentioned in the `spec_file.txt`.
+2. Install the remaining dependencies from `requirements.txt`.
