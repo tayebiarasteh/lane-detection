@@ -1,0 +1,36 @@
+{
+  "Network": {
+
+    "num_epochs": 20, 
+    "seed": 1, 
+    "total_dataset_number": 0 
+
+  }, 
+  "box_size_max": 0.8, 
+  "box_size_min": 0.3, 
+  "colrec_prob": 1, 
+  "detections_file_name": "detections.h5", 
+  "display_stats_freq": 100, 
+  "gaussian_prob": 0.5, 
+  "img_file_prefix": "img_", 
+  "img_file_suffix": ".png", 
+  "input_data_path": "./data/input_data/", 
+  "invert_prob": 0.5, 
+  "left_right_flip_prob": 0.5, 
+  "max_rot": 80, 
+  "mean": 0, 
+  "network_output_path": "./data/network_data/", 
+  "network_save_freq": 1000, 
+  "num_rec": 10, 
+  "output_data_path": "./data/output_data/", 
+  "rotate_prob": 0.5, 
+  "std": 50, 
+  "tf_logs_path": "./data/tensor_board_logs/", 
+  "trained_model_name": "trained_model.pth", 
+  "x_size": 10, 
+  "y_size": 10, 
+  "zoomfac_max": 1.5, 
+  "zoomfac_min": 1.3, 
+  "zoomin_prob": 0.3, 
+  "zoomout_prob": 0.5
+}
