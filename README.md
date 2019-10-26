@@ -10,7 +10,7 @@ The standard modern approach to solve this type of problems is to take a large d
 #### Goal of this project: 
 To solve the afformentioned problem, using a dataset of simulated images intermixed with a dataset of real images that contain no road.
 
-Requiremnets
+Requirements
 ------
 
 The software is developed in **Python** **2.7** using **Jupyter** **Notebook** development kit. For deep learning, the **PyTorch** framework is used.
