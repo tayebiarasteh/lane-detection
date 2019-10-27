@@ -21,6 +21,6 @@ Software requirements
 
 The software is developed in **Python** **2.7** using **Jupyter** **Notebook** development kit. For deep learning, the **PyTorch** framework is used.
 
-All Python modules required for the software can be installed from `reuirements` in two stages:
+All Python modules required for the software can be installed from `requirements` in two stages:
 1. Create an environment and install all modules mentioned in the `spec_file.txt`.
 2. Install the remaining dependencies from `requirements.txt`.
