@@ -1,6 +1,6 @@
 # Semi-supervised road-lane markings detection for autonomous driving
 
-This project was part of the *Labopraktikum Machine Learning in Signal Processing* at [University of Erlangen-Nuremberg (FAU)](https://www.fau.eu/). For more information click [here](http://machinelearning.tf.fau.de/).
+This project was part of the [Labopraktikum Machine Learning in Signal Processing](http://univis.uni-erlangen.de/prg?search=lectures&id=21859177&sem=2019w&lang=de&show=full) at University of Erlangen-Nuremberg (FAU). For more information click [here](http://machinelearning.tf.fau.de/).
 
 Introduction
 ------
