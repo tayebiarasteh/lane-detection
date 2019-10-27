@@ -5,10 +5,10 @@ together with the information which pixels belong to a lane.
 This data may then be used to perform supervised learning with a neural network
 for lane recognition.
 """
+
 from copy import deepcopy
 import numpy as np
 import random
-
 import sys
 sys.path.append('../')
 # User imports
@@ -50,29 +50,25 @@ def simulate_road_img(config):
         # is bigger than a drawn random number
         if 'prob' not in layer or layer['prob'] > random.random():
             try:
-                # Get the configuration for this layer
                 layer_config = params['layer_configs'][layer['config_id']]
             except KeyError:
                 raise 
 
             for f in layer.get('filters', []):
-                # Apply the filters defined for this layer
+                # Applys the filters defined for this layer
                 layer_config = CONFIG_FILTER_REGISTRY[f['type']](**f['params']).filter(layer_config)
-
             try:
-                # Initialize layer
+                # Initializes layer
                 img_layer = LAYER_REGISTRY[layer_config['layer_type']](params['height'], params['width'], **layer_config['layer_params'])
-
-                # Add layer to layer stack
                 layers.append(img_layer)
 
-                # If the layer should be serialized, add its features to the list of detections
+                # If the layer should be serialized, adds its features to the list of detections
                 if layer.get('serialize'):
                     detections = img_layer.to_point_cloud()
             except KeyError:
                 raise 
 
-    # Merge image
+    # Merges image
     img = merge_layers(layers)
 
     return img, detections

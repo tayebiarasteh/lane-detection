@@ -68,7 +68,6 @@ class Img_dataset(Dataset):
         self.size=size
         self.augmentation = augmentation
         self.dataset_parent_path = dataset_parent_path
-        #Initialize Database inorder to get image list. This is stored in self.img_list
         self.img_list = self._init_dataset(dataset_name,seed,params)
        
 
@@ -83,7 +82,7 @@ class Img_dataset(Dataset):
         The images and labels are returned in torch tensor format.
         '''
 
-        #Read images using files name availble in self.img_list
+        #Reads images using files name availble in self.img_list
         img = imread(self.img_list[idx])
         img = resize(img, (HEIGHT, WIDTH))
         
@@ -95,7 +94,7 @@ class Img_dataset(Dataset):
             img = torch.from_numpy(img)            
             return img
         
-        #If mode is not PREDICT, Obtain binary label image 
+        #If mode is not PREDICT, Obtains binary label image 
         else:
             label_point_cloud = read_detection(os.path.join(self.dataset_path , self.detections_file_name), os.path.basename(self.img_list[idx]))
             x = label_point_cloud[0] ; y = label_point_cloud[1] 
@@ -104,7 +103,7 @@ class Img_dataset(Dataset):
                           
         #Apply augmentation if applicable
 
-            #Convert image and label to tensor and return image,label
+            #Converts image and label to tensor and returns image,label
             img = img.transpose((2, 0, 1))
             img = torch.from_numpy(img)
             label = torch.from_numpy(label)
@@ -123,9 +122,9 @@ class Img_dataset(Dataset):
         Final image list is stored into self.img_list
         '''
 
-        # Check if the dataset directory exists
+        # Checks if the dataset directory exists
         if os.path.isdir(self.dataset_path):
-            # If dataset directory found: Collect the file names of all images and store them to a list
+            # If dataset directory found: Collects the file names of all images and stores them to a list
             image_list = os.listdir(self.dataset_path)
             img_list = []
             for item in image_list:
@@ -148,7 +147,7 @@ class Img_dataset(Dataset):
             elif len(img_list) == self.size:
                 self.img_list = img_list
 
-        # If dataset directory not found: Run the simulator and obtain img list from simulation dataset.
+        # If dataset directory not found: Runs the simulator and obtain img list from simulation dataset.
         else:
             self.dataset_path = simulation_pipeline(params, self.size, dataset_name, seed)
             image_list = os.listdir(self.dataset_path)
@@ -157,14 +156,14 @@ class Img_dataset(Dataset):
                 if ((re.search(".png", str(item))) or (re.search(".jpeg", str(item))) or (re.search(".jpg", str(item)))):
                     self.img_list.append(os.path.join(self.dataset_path, item))
 
-        # Check if detection file is present in the folder and if it is not present create a true 
+        # Checks if detection file is present in the folder and if it is not present creates a true 
         # negative detection file using label_true_negatives function from pipelines.py 
         #will be done from pipeline, through the point cloud.
         if not os.path.isfile(os.path.join(self.dataset_path , self.detections_file_name)):
             label_true_negatives(self.dataset_path, self.detections_file_name)
        
         # CODE FOR CONFIG FILE TO RECORD DATASETS USED
-        # Save the dataset information for writing to config file
+        # Saves the dataset information for writing to config file
         if self.mode==Mode.TRAIN:
             params = read_config(self.cfg_path)
             params['Network']['total_dataset_number']+=1

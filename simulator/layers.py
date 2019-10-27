@@ -1,12 +1,11 @@
 """
 This module provides implementations of some basis layer types
 that together may form a simulated image.
-
-@author: Sebastian Lotter <sebastian.g.lotter@fau.de>
+@first author: Sebastian Lotter <sebastian.g.lotter@fau.de>
 """
+
 from functools import partial
 import numpy as np
-
 import sys
 sys.path.append('../')
 
@@ -31,6 +30,7 @@ class Layer():
     The Layer class is the abstract base class for implementations of
     different layer types.
     """
+    
     def __init__(self, height, width):
         self.dims = (height, width)
 
@@ -46,13 +46,14 @@ class BackgroundLayer(Layer):
     Represents background of an image. The 'fmask' of a BackgroundLayer
     is an all-one matrix of the dimensions of the image.
     """
+    
     def __init__(self, height, width, color_fct):
         Layer.__init__(self, height, width)
 
-        # Initialize all-one bitmask. 
+        # Initializes all-one bitmask. 
         self.fmask = np.ones((height, width))
 
-        # Bind color function to given parameters. Use a partial function. Have a look at e.g. class SkyLayer to see how it is used.
+        # Binds color function to given parameters.
         self.color_fct = partial(COLOR_FCT_REGISTRY[color_fct['type']], **color_fct['params'])
 
 
@@ -93,22 +94,13 @@ class StraightRoadLayer(Layer):
         """
         Layer.__init__(self, height, width)
 
-        # Initialize right border of the road from given left boundary and width
-        # and complete the set of coordinates to define a polygon representing the road
-#         road = [[1.0,0.3],[0.0,0.3]]
-#         lanes = [
-#                         [[1.0,0.3], [0.0,0.3]],
-#                         [[1.0,0.48], [0.0,0.48]],
-#                         [[1.0,0.51], [0.0,0.51]],
-#                         [[1.0,0.69], [0.0,0.69]]]
-
+        #defines a polygon representing the road
         road_right_bottom = [road[1][0], road[1][1] + road_width]
         road_right_top = [road[0][0], road[0][1] + road_width]
         road_right = [ road_right_bottom, road_right_top]
         road_coords = road + road_right #road coords
 
         # For each pair of coordinates representing the left border of a lane
-        # complete the lane polygon
         lane_coords = []
         for i, lane in enumerate(lanes):
             lane_right_bottom = [lane[1][0], lane[1][1] + lane_widths[i]]
@@ -116,16 +108,9 @@ class StraightRoadLayer(Layer):
             lane_right = [lane_right_bottom, lane_right_top]
             lane_coords.append(lane + lane_right)  #lane coords
             
-
-
-        # Initialize homography transform (see simulator/utils.py)\
-#         import pdb; pdb.set_trace()
+        # Initializes homography transform
         tform= init_transform(transform_coordinates["src"], transform_coordinates["tgt"])
-
-        # Intialize self.road_layer. You can find the subclass below.
-        self.road_layer = RoadLayer(height, width, road_coords, tform, color_fcts[0])
-        
-        # Initialize each lane layer and store a reference in self.lane_layers. You can find the subclass below.
+        self.road_layer = RoadLayer(height, width, road_coords, tform, color_fcts[0])        
         self.lane_layers = []
         i = 0 #counter
         for lane in lanes:
@@ -133,22 +118,20 @@ class StraightRoadLayer(Layer):
             eachLane = LaneLayer(height, width, lane_coords[i-1], tform, color_fcts[i])
             self.lane_layers.append(eachLane)
 
-        # Merge bitmasks (see helper function in this file) and store it in self.fmask
+        # Merges bitmasks 
         road_mask = self.road_layer.fmask
         lane_masks = []
         for lane in self.lane_layers:
-            lane_masks.append(lane.fmask)
-        
-        self.fmask = merge_masks(road_mask+lane_masks)
-        
+            lane_masks.append(lane.fmask)        
+        self.fmask = merge_masks(road_mask+lane_masks)        
         lane_masks = merge_masks(lane_masks)
         self.lane_masks = lane_masks
 
     def render(self):
-        # Merge road and lane sublayers and render them (see simulator/utils.py)
+        '''
+        Merges road and lane sublayers and renders them
+        '''
         img = merge_layers([self.road_layer]+self.lane_layers)
-#         import pdb; pdb.set_trace()
-
         return img
 
     def to_point_cloud(self):
@@ -199,6 +182,7 @@ class RoadLayer(Layer):
     """
     Layer representing the road itself, without lanes.
     """
+    
     def __init__(self, height, width, road_coords, tform, color_fct):
         """
         Initialize RoadLayer
@@ -211,19 +195,18 @@ class RoadLayer(Layer):
         color_fct   -- function to color layer
         """
 
-        # Complete road coordinates to form a polygon
-#         print('salam', road_coords)
+        #forms a polygon
         road = road_coords[:]
         if road[0][0] != road[-1][0] or road[0][1] != road[-1][1]:
             road.append(road[0])
 
-        # Project coordinates to perspective view
+        # Projects coordinates to perspective view
         proj_coords = project(road_coords, tform)
 
-        # Initialize bitmask via draw_polygon function
+        # Initializes bitmask
         self.fmask = draw_polygon(height, width, proj_coords)
 
-        # Bind color function to input parameters
+        # Binds color function to input parameters
         self.color_fct = partial(COLOR_FCT_REGISTRY[color_fct['type']], **color_fct['params'])
 
 
@@ -231,6 +214,7 @@ class LaneLayer(Layer):
     """
     Layer representing the lanes/lane markings on a road.
     """
+    
     def __init__(self, height, width, lane_coords, tform, color_fct):
         """ 
         Initialize LaneLayer
@@ -243,18 +227,18 @@ class LaneLayer(Layer):
         color_fct   -- function to color layer
         """
 
-        # Complete lane coordinates to form a polygon. You may use the function project in simulator/utils.py. Tipp: Have a look at class RoadLayer.
+        #forms a polygon
         Lane = lane_coords[:]
         if Lane[0][0] != Lane[-1][0] or Lane[0][1] != Lane[-1][1]:
             Lane.append(Lane[0])
             
-        # Project coordinates to perspective view
+        # Projects coordinates to perspective view
         proj_coords = project(lane_coords, tform)
 
-        # Initialize bitmask via draw_polygon function
+        # Initializes bitmas
         self.fmask = draw_polygon(height, width, proj_coords)
 
-        # Bind color function to input parameters
+        # Binds color function to input parameters
         self.color_fct = partial(COLOR_FCT_REGISTRY[color_fct['type']], **color_fct['params'])
 
 
@@ -308,5 +292,3 @@ LAYER_REGISTRY = {
     'SkyLayer'                : SkyLayer,
     'StraightRoadLayer'       : StraightRoadLayer
 }
-
-
