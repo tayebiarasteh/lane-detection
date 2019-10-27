@@ -12,6 +12,9 @@ To solve the afformentioned problem, using a dataset of simulated images intermi
 
 Proposed architecture
 ------
+The architecture used in this software is a variant of the [U-Net](https://arxiv.org/pdf/1505.04597.pdf) architecture.
+
+You can see the input video [here](https://github.com/SorooshTA/lane-detection/raw/master/data/input_data/Video/3911-3931.mp4) and the output video here.
 
 Software requirements
 ------
