@@ -1,7 +1,3 @@
-#UNet Implementation
-#Refer to the block diagram and build the UNet Model
-
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F

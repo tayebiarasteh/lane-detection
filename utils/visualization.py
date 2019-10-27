@@ -23,9 +23,9 @@ def get_output_images(input_layer,output_3d):
         Inputs:
             input_layer: 3D input image. Value range between 0 to 1.
             output_3d: 3D tensor of network outputs '''
-    # Generate the probabilty map using above function get_probability_map(). Use network output tensor as input.
+    # Generates the probabilty map using above function get_probability_map(). Uses network output tensor as input.
     #round/threshold function to assign pixels as 0 (no detection) or 1 (detection).
-    # create a 3 channel image with probabilty map in the red channel.
+    # creates a 3 channel image with probabilty map in the red channel.
 
     prob_Image = get_probability_map(output_3d)
     prob_Image= torch.squeeze(prob_Image, 0)
