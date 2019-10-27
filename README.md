@@ -12,6 +12,7 @@ To solve the afformentioned problem, using a dataset of simulated images intermi
 
 Proposed architecture
 ------
+The architecture used in this software is a variant of the [U-Net](https://arxiv.org/pdf/1505.04597.pdf) architecture.
 
 Software requirements
 ------
