@@ -18,7 +18,7 @@ You can see the input video [here](https://github.com/SorooshTA/lane-detection/r
 Software requirements
 ------
 
-The software is developed in **Python** **2.7** using **Jupyter** **Notebook** development kit. For deep learning, the **PyTorch** framework is used.
+The software is developed in **Python** **2.7** and deep learning, the **PyTorch** framework is used.
 
 All Python modules required for the software can be installed from `requirements` in two stages:
 1. Create an environment and install all modules mentioned in the `spec_file.txt`.
