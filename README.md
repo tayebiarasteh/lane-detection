@@ -5,7 +5,6 @@ This project was part of the [Labopraktikum Machine Learning in Signal Processin
 Introduction
 ------
 In autonomous driving, among other things, the car needs to steer itself to keep driving in its own lane. To accomplish this, the central problem is to detect the road-lane markings. These are the white solid or dashed lines that are drawn on each side of the lane. 
-
 The standard modern approach to solve this type of problems is to take a large dataset of labeled examples and train a deep neural network model to accomplish the task. This is how car and pedestrian detection algorithms are developed. The difficulty with the road-lane markings is that there is no labeled dataset of them and creating such dataset would cost millions of dollars. 
 #### Goal of this project: 
 To solve the afformentioned problem, using a dataset of simulated images intermixed with a dataset of real images that contain no road.
