@@ -30,9 +30,7 @@ Intermixed dataset of:
 1. 258 real images which contain no lane, from folder `True_Negative_Dataset_Train`.
 2. 1000 simulated cartoon-like images of road containing lanes. You can generate as much simulate images as you want from `simulator`. Done in Python, you can find the codes of simulation in `simulator`. An example image is shown below.
 
-![image][logo]
-
-[logo]: https://raw.githubusercontent.com/starasteh/lane-detection/master/simulator/example.png?token=ALTUITEHKE2A5LWUM3EHB2S5YNASO
+![](simulator/example.png)
 
 #### Training details
 
