@@ -1,21 +1,14 @@
-
-#Refer to the example given in https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html to understand the various aspects of the training code.
-
 #System Modules
 import os.path
 from enum import Enum
 import datetime
-
 
 # Deep Learning Modules
 from tensorboardX import SummaryWriter
 from torchvision.utils import make_grid
 import torch
 
-
 # User Defined Modules
-
-
 from serde import *
 from utils.visualization import get_output_images
 # from utils.augmentation import *
@@ -63,25 +56,19 @@ class Training:
         '''
         #Tensor Board Graph
         self.add_tensorboard_graph(model)
-        #ToDo: Set model to use self.device and store in self variable.
         self.model = model().to(self.device)
 
-        #ToDo: Setup optimiser
-        # Note: optimiser_params is a dictionary containing parameters for the optimiser. Hint: Read about **kwargs in python documentation
+        # optimiser_params is a dictionary containing parameters for the optimiser.
         self.optimiser = optimiser(self.model.parameters(), **optimiser_params)
 
         self.loss_weight=torch.tensor([1,weight_ratio],dtype=torch.float).to(self.device) #Non lane is class 0 and lane is class 1
-        #ToDo: Assign the loss function self.loss_function. Remember to pass the loss_weight from above as parameter.
         self.loss_function = loss_function(weight=self.loss_weight)
 
-
-
-        #Load model if retrain key is present in model info
         if 'retrain' in self.model_info and self.model_info['retrain']==True:
             self.load_pretrained_model()
             
-        #DO NOT CHANGE: CODE FOR CONFIG FILE TO RECORD MODEL PARAMETERS
-        #Save the model, optimiser,loss function name for writing to config file
+        # CODE FOR CONFIG FILE TO RECORD MODEL PARAMETERS
+        #Saves the model, optimiser,loss function name for writing to config file
         self.model_info['model_name']=model.__name__
         self.model_info['optimiser']=optimiser.__name__
         self.model_info['loss_function']=loss_function.__name__
@@ -90,9 +77,7 @@ class Training:
         self.params['Network']=self.model_info
         write_config(self.params, self.cfg_path,sort_keys=True)
         
-        
-
-
+       
     def add_tensorboard_graph(self,model):
         '''
         Creates a tensor board graph for network visualisation
@@ -108,20 +93,17 @@ class Training:
         '''
         self.steps=0
 
-        #ToDo: read param file again to include changes if any
+        # reads param file again to include changes if any
         self.params=read_config(self.cfg_path)
-
         
-        #Check if already trained
+        #Checks if already trained
         if  'trained_time' in self.model_info:
             self.raise_training_complete_exception
 
-        #DO NOT CHANGE: CODE FOR CONFIG FILE TO RECORD MODEL PARAMETERS
+        # CODE FOR CONFIG FILE TO RECORD MODEL PARAMETERS
         self.model_info = self.params['Network']
         self.model_info['num_epochs']=num_epochs or self.model_info['num_epochs']
-        
-        
-        #ToDo: Inside a for loop on total number of epochs, run train_epoch and test_epoch functions using the appropriate data loader.
+              
         self.epoch = 0
         print('Starting time:' + str(datetime.datetime.now()))
         for epoch in range(num_epochs):
@@ -132,20 +114,16 @@ class Training:
             print('')
             print('Testing:')
             self.test_epoch(test_loader)
-
-
-        
-        #ToDo: Save model using path from self.params['network_output_path'] and self.params['trained_model_name'] using torch.save . Refer documentation for more information.
+      
+        # Saves model using path from self.params['network_output_path'] and self.params['trained_model_name']
             torch.save(self.model.state_dict(), self.params['network_output_path'] + "/epoch_" + str(self.epoch) + '_' + self.params['trained_model_name'])
 #             torch.save(self.model.state_dict(), self.params['network_output_path'] + "/" + self.params['trained_model_name'])
 
-
-        #DO NOT CHANGE: CODE FOR CONFIG FILE TO RECORD TRAINING INFO
-        #Save information about training to config file
+        #CODE FOR CONFIG FILE TO RECORD TRAINING INFO
+        #Saves information about training to config file
         self.model_info['num_steps']=self.steps
         self.model_info['trained_time']="{:%B %d, %Y, %H:%M:%S}".format(datetime.datetime.now())
         self.params['Network'] = self.model_info
-
         
         write_config(self.params, self.cfg_path,sort_keys=True)
 
@@ -154,60 +132,42 @@ class Training:
         print("Epoch [{}/{}] \n".format(self.epoch +1, self.model_info['num_epochs']))
         #Create list to store loss value to display statistics
         loss_list = []
-        
-
+      
         for i, (image, label) in enumerate(train_loader):
-            #ToDo: Set image and label to use self.device
             image = image.float()
             label = label.long()
-
             image = image.to(self.device)
             label = label.to(self.device)
             
-            #ToDo:  Forward pass. Refer : https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html
+            #Forward pass.
             self.optimiser.zero_grad()
             
-            with torch.set_grad_enabled(True):
-                
+            with torch.set_grad_enabled(True):                
                 output = self.model(image)
-
-                #ToDo: Append loss to list
                 loss = self.loss_function(output, label)
                 loss_list.append(loss.data[0])
 
-
-                #ToDo: Backward and optimize Refer: https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html
+                #Backward and optimize
                 loss.backward()
                 self.optimiser.step()
 
-                #ToDo: Save model after certain number of steps as specified in params['network_save_freq']
-#                 if (i+1)%self.params['network_save_freq'] == 0:
-#                     torch.save(self.model.state_dict(), self.params['network_output_path'] + '/' + "step_" + str(i) + "_" + "epoch_" + str(self.epoch) + '_' + self.params['trained_model_name'])
-
-                #Note: Prefix default filename with step number Eg: step_5_trained_model.pth
-
-
-                #ToDo: Print loss statistics after certain number of steps as specified in params['display_stats_freq']. Use the function calculate_loss_stats, see below.
+                # Prints loss statistics after certain number of steps as specified in params['display_stats_freq'].
                 if (i+1)%self.params['display_stats_freq'] == 0:
                     self.calculate_loss_stats(loss_list)
 
                     #reset loss list after number of steps as specified in params['display_stats_freq']
                     loss_list= []
-
             self.steps = self.steps + 1
 
 
     def test_epoch(self,test_loader):
         '''Test model after an epoch and calculate loss on test dataset'''
-        #ToDo: Set model to evaluation mode. Refer : https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html
         self.model.eval()
 
-        #Initialize an image list for tensor board
+        #Initializes an image list for tensor board
         img_list = []
-        #Implement test step.
         with torch.no_grad():
             loss_list = []
-            #ToDo : Using for loop on data loader, set images and labels to self.device.
             for i, (image, label) in enumerate(test_loader):
                 image = image.float()
                 label = label.long()
@@ -215,18 +175,13 @@ class Training:
                 image = image.to(self.device)
                 label = label.to(self.device)
 
-            #ToDo : Call the model using the images as input as done in the training function above.
                 output = self.model(image)
-
-
-            #ToDo : Calculate the loss and append it to loss list
                 loss = self.loss_function(output, label)
                 loss_list.append(loss.data[0])
 
-
                 if i % 5 == 0:
-                    #Get overlay image and probability image from function in visualization.py
-                    #Note: Give inputs to the functions as required. Image tensors must be between 0 to 1 and not 0 to 255 for this function.Also, you require input in  CxHxW dimensions not NxCxHxW
+                    # overlay image and probability image from function in visualization.py
+                    # Image tensors must be between 0 to 1 and not 0 to 255 for this function. Also, you require input in  CxHxW dimensions not NxCxHxW
 
                     image = torch.squeeze(image, 0)
                     image=image/255
@@ -238,39 +193,27 @@ class Training:
                     img_list.extend([images, prob_img, overlay_img])
                     self.calculate_loss_stats(loss_list,is_train=False)
 
-
         #Setup Tensorboard Image
         image_grid = make_grid(img_list, nrow=3)
         self.writer.add_image('Input-Segmentation Probabilty-Overlay', image_grid, self.steps)
-        #ToDo :Set model to train mode
         self.model.train()
 
 
-
     def calculate_loss_stats(self,loss_list,is_train=True):
-        #ToDo :Convert list to tensor(Hint: use torch.stack), inorder to use other torch functions to calculate statistics later
+        # Converts list to tensor inorder to use other torch functions to calculate statistics later
         loss_list = torch.stack(loss_list)
-
-
-        #ToDo :Calculate stats: average,max,min,etc (Refer https://pytorch.org/docs/stable/torch.html to find the function you may require)
-#         max_loss = torch.max(loss_list)
-#         min_loss = torch.min(loss_list)
         avg = torch.mean(loss_list)
-
-        
-        
+              
         #Print result to tensor board and std. output 
         if is_train:
             mode='Train'
         else:
             mode='Test'
             
-        #Add average loss value to tensorboard 
+        #Adds average loss value to tensorboard 
         self.writer.add_scalar(mode+'_Loss', avg, self.steps)
 
-        #ToDo :Print stats
-#         print('maximum value of the losses: ', max_loss)
-#         print('minimum value of the losses: ', min_loss)
+        # Prints stats
         print('average value of the losses: ', avg)
         
     def load_pretrained_model(self):
