@@ -26,9 +26,14 @@ The [architecture](https://github.com/starasteh/lane-detection/blob/master/model
 Training
 ------
 #### Training data
-Intermixed dataset of,
+Intermixed dataset of:
 1. 258 real images which contain no lane, from folder `True_Negative_Dataset_Train`.
-2. 1000 simulated cartoon-like images of road containing lanes. You can generate as much as you want simulate images from `simulator`.
+2. 1000 simulated cartoon-like images of road containing lanes. You can generate as much simulate images as you want from `simulator`. Done in Python, you can find the codes of simulation in `simulator`. An example image is shown below.
+
+![image][logo]
+
+[logo]: https://raw.githubusercontent.com/starasteh/lane-detection/master/simulator/example.png?token=ALTUITEHKE2A5LWUM3EHB2S5YNASO
+
 #### Training details
 
 The network is trained with the following details:
@@ -46,5 +51,6 @@ No data augmentation is used on the `True_Negative_Dataset_Train` dataset. ReLU 
 Results
 ------
 You can see the input video [here](https://github.com/SorooshTA/lane-detection/raw/master/data/input_data/Video/3911-3931.mp4) and the output video [here](https://github.com/SorooshTA/lane-detection/raw/master/data/output_data/outputvideo.mp4).
-As you can see in the video, predictions are pretty acceptable considering that we have given no single **real** TP image as the input to the network. Also, the simulated images are very simple, done in Python, you can find the codes in `simulator`. Simulating images more close to reality would lead to better performance though. 
+
+As you can see in the video, predictions are pretty acceptable considering that we have given no single **real** TP image as the input to the network. Also, the simulated images are very simple. Simulating images more close to reality would lead to better performance though. 
 
