@@ -9,17 +9,29 @@ The standard modern approach to solve this type of problems is to take a large d
 #### Goal of this project 
 To solve the afformentioned problem, using a dataset of simulated images intermixed with a dataset of real images that contain no road.
 
+Installation of requirements
+------
+
+The software is developed in **Python** **2.7** and deep learning, the **PyTorch** framework is used.
+
+All Python modules required for the software can be installed from `requirements` in two stages:
+1. Create an environment and install all modules mentioned in the `spec_file.txt`.
+2. Install the remaining dependencies from `requirements.txt`.
+
 Proposed architecture
 ------
-The architecture used in this software is a variant of the [U-Net](https://arxiv.org/pdf/1505.04597.pdf) architecture.
+The [architecture](https://github.com/starasteh/lane-detection/blob/master/models/Architecture.pdf) used in this software is a variant of the [U-Net](https://arxiv.org/pdf/1505.04597.pdf) architecture.
 
 
 Training
 ------
 #### Training data
-Intermixed dataset of,
-1. 258 real images which contain no lane, from `True_Negative_Dataset_Train`.
-2. 1000 simulated cartoon-like images of road containing lanes.
+Intermixed dataset of:
+1. 258 real images which contain no lane, from folder `True_Negative_Dataset_Train`.
+2. 1000 simulated cartoon-like images of road containing lanes. You can generate as much simulate images as you want from `simulator`. Done in Python, you can find the codes of simulation in `simulator`. An example image is shown below.
+
+![](simulator/example.png)
+
 #### Training details
 
 The network is trained with the following details:
@@ -38,12 +50,5 @@ Results
 ------
 You can see the input video [here](https://github.com/SorooshTA/lane-detection/raw/master/data/input_data/Video/3911-3931.mp4) and the output video [here](https://github.com/SorooshTA/lane-detection/raw/master/data/output_data/outputvideo.mp4).
 
+As you can see in the video, predictions are pretty acceptable considering that we have given no single **real** TP image as the input to the network. Also, the simulated images are very simple. Simulating images more close to reality would lead to better performance though. 
 
-Installation of requirements
-------
-
-The software is developed in **Python** **2.7** and deep learning, the **PyTorch** framework is used.
-
-All Python modules required for the software can be installed from `requirements` in two stages:
-1. Create an environment and install all modules mentioned in the `spec_file.txt`.
-2. Install the remaining dependencies from `requirements.txt`.
