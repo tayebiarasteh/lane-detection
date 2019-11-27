@@ -39,10 +39,10 @@ class double_conv(nn.Module):
         super(double_conv, self).__init__()
         self.conv = nn.Sequential(
             nn.Conv2d(in_ch, out_ch, kernel_size=3, padding=1),
-            nn.BatchNorm2d(out_ch),     # N_features?
+            nn.BatchNorm2d(out_ch),
             nn.ReLU(inplace=True),
             nn.Conv2d(out_ch, out_ch, kernel_size=3, padding=1),
-            nn.BatchNorm2d(out_ch),     # N_features?
+            nn.BatchNorm2d(out_ch),
             nn.ReLU(inplace=True)
         )
 
@@ -50,33 +50,33 @@ class double_conv(nn.Module):
         output_tensor = self.conv(input_tensor)
         return output_tensor
 
-    #Input Block
+
+#Input Block
+class inconv(nn.Module):
     def __init__(self, in_ch, out_ch):
         super(inconv, self).__init__()
         self.in_double_conv1 = double_conv(in_ch, out_ch)
-
 
     def forward(self, input_tensor):
         #Apply input_tensor on object from init function and return the output_tensor 
         output_tensor = self.in_double_conv1(input_tensor)
         return output_tensor
 
-    
+#Down Block
 class down(nn.Module):
-    #Down Block
     def __init__(self, in_ch, out_ch):
         super(down, self).__init__()
         self.maxpool1 = nn.MaxPool2d(kernel_size = 2)
         self.down_double_conv1 = double_conv(in_ch, out_ch)
 
-        #Apply input_tensor on object from init function and return the output_tensor 
+    def forward(self, input_tensor):
+        #Apply input_tensor on object from init function and return the output_tensor
         input_tensor = self.maxpool1(input_tensor)
         output_tensor = self.down_double_conv1(input_tensor)
         return output_tensor
 
-    
+#Up Block
 class up(nn.Module):
-    #Up Block
     def __init__(self, in_ch, out_ch):
         super(up, self).__init__()
         self.upsample1 = nn.Upsample(scale_factor=2)
@@ -89,13 +89,11 @@ class up(nn.Module):
         output_tensor = self.up_double_conv1(input_tensor)
         return output_tensor
 
-    
+#Out Block
 class outconv(nn.Module):
-    #Out Block
     def __init__(self, in_ch, out_ch):
         super(outconv, self).__init__()
         self.conv_out = nn.Conv2d(in_ch, out_ch, kernel_size=1)
-
 
     def forward(self, input_tensor):
         output_tensor = self.conv_out(input_tensor)
