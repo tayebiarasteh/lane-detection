@@ -1,6 +1,8 @@
 # Semi-supervised road-lane markings detection for autonomous driving
 
-This project was part of the Labopraktikum Machine Learning in Signal Processing at University of Erlangen-Nuremberg (FAU), EEI department.
+### By Soroosh Tayebi Arasteh
+
+This project was part of the Labopraktikum Machine Learning in Signal Processing of the Electrical, Electronics, and Communications (EEI) department at University of Erlangen-Nuremberg (FAU).
 
 Introduction
 ------
