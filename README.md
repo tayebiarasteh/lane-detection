@@ -14,7 +14,7 @@ To solve the afformentioned problem, using a dataset of simulated images intermi
 Installation of requirements
 ------
 
-The software is developed in **Python 2.7** using **Jupyter Notebook** development kit. For the deep learning, the **PyTorch 0.4.0** framework is used.
+The software is developed in **Python 2.7** using **Jupyter Notebook** development kit. For the deep learning, the **PyTorch 0.4** framework is used.
 
 All Python modules required for the software can be installed from `requirements` in two stages:
 1. Create a conda environment and install all modules mentioned in the `spec_file.txt`:
