@@ -2,6 +2,11 @@
 
 ### By Soroosh Tayebi Arasteh
 
+[![](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/starasteh/DeepLearning_from_scratch/pulls)
+
+This project contains some of the programming exercises of the Deep Learning course (WS1920) offered by the [Pattern Recognition Lab (LME)](https://lme.tf.fau.de/) of the [Computer Science Department](https://www.informatik.uni-erlangen.de/) at University of Erlangen-Nuremberg (FAU).
+
+
 This project was part of the Labopraktikum Machine Learning in Signal Processing of the Electrical, Electronics, and Communications (EEI) department at University of Erlangen-Nuremberg (FAU).
 
 Introduction
