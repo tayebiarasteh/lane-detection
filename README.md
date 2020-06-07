@@ -2,7 +2,7 @@
 
 ### By Soroosh Tayebi Arasteh
 
-[![](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/starasteh/DeepLearning_from_scratch/pulls)
+[![](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/starasteh/lane-detection/pulls)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 
