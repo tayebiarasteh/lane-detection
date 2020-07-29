@@ -7,7 +7,8 @@
 
 
 
-This project was part of the Labopraktikum Machine Learning in Signal Processing of the Electrical, Electronics, and Communications (EEI) department at University of Erlangen-Nuremberg (FAU).
+This project was part of the *Labopraktikum Machine Learning in Signal Processing* offered by the [Chair of Multimedia Communications and Signal Processing (LMS)](https://www.lms.tf.fau.eu/) of the [Electrical Engineering Department](https://www.eei.tf.fau.de/) at [University of Erlangen-Nuremberg (FAU)](https://www.fau.eu/).
+
 
 Introduction
 ------
