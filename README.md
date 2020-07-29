@@ -1,4 +1,3 @@
-# Semi-supervised road-lane markings detection for autonomous driving
 
 ### By Soroosh Tayebi Arasteh
 
