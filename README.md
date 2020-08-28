@@ -1,14 +1,14 @@
 # Weakly-supervised road-lane markings detection for autonomous driving, mitigating the lack of training data
 
 
-### By Soroosh Tayebi Arasteh
+### By [Soroosh Tayebi Arasteh](https://github.com/starasteh/)
 
 [![](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/starasteh/lane-detection/pulls)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 
 
-This project was part of the *Labopraktikum Machine Learning in Signal Processing* offered by the [Chair of Multimedia Communications and Signal Processing (LMS)](https://www.lms.tf.fau.eu/) of the [Electrical Engineering Department](https://www.eei.tf.fau.de/) at [University of Erlangen-Nuremberg (FAU)](https://www.fau.eu/).
+This project was part of the *Labopraktikum Machine Learning in Signal Processing* (SS 2019, Prof. Dr. Veniamin Morgenshtern) offered by the [Chair of Multimedia Communications and Signal Processing (LMS)](https://www.lms.tf.fau.eu/) of the [Electrical Engineering Department](https://www.eei.tf.fau.de/) at [University of Erlangen-Nuremberg (FAU)](https://www.fau.eu/).
 
 
 Introduction
@@ -32,6 +32,20 @@ All Python modules required for the software can be installed from `requirements
 
 `$ pip install -r requirements.txt`
 
+Code structure
+---
+1. Everything can be ran from *./Train.ipynb* for training, and from *./Predict.ipynb* for testing. 
+* Set the hyper-parameters and model parameters here. 
+* The data preprocessing parameters and directories can be modified from *./configs/config.json*.
+* Also, you should first choose an `experiment` name (if you are starting a new experiment) for training, in which all the evaluation and loss value statistics, tensorboard events, and model & checkpoints will be stored. Furthermore, a `config.json` file will be created for each experiment storing all the information needed.
+* For testing, just load the experiment which its model you need.
+
+2. The rest of the files:
+* *./models/* directory contains the model architecture.
+* *./simulator/* directory contains the files which simulate cartoon-like training images.
+* *./Training.py* contains the training and validation processes.
+* *./Prediction.py* contains the testing process.
+* *./data/Img_dataset.py* and *./data/Video_dataset.py* contain data handlers.
 
 Proposed architecture
 ------
