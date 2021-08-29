@@ -1,7 +1,7 @@
 # Weakly-supervised road-lane markings detection for autonomous driving, mitigating the lack of training data
 
 
-### By [Soroosh Tayebi Arasteh](https://github.com/starasteh/) | سروش طیبی آراسته
+### By [Soroosh Tayebi Arasteh](https://github.com/tayebiarasteh/) | سروش طیبی آراسته
 
 [![](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/starasteh/lane-detection/pulls)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
