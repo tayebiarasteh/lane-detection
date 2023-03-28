@@ -1,11 +1,9 @@
 # Weakly-supervised road-lane markings detection for autonomous driving, mitigating the lack of training data
 
 
-### By [Soroosh Tayebi Arasteh](https://github.com/tayebiarasteh/) | سروش طیبی آراسته
+### By [Soroosh Tayebi Arasteh](https://github.com/tayebiarasteh/)
 
 [![](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/starasteh/lane-detection/pulls)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-
 
 
 This project was part of the *Labopraktikum Machine Learning in Signal Processing* (SS 2019, Prof. Dr. Veniamin Morgenshtern) offered by the [Chair of Multimedia Communications and Signal Processing (LMS)](https://www.lms.tf.fau.eu/) of the [Electrical Engineering Department](https://www.eei.tf.fau.de/) at [University of Erlangen-Nuremberg (FAU)](https://www.fau.eu/).
